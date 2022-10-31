@@ -1,24 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import JobPage from "./components/JobPage";
+import MainPage from "./components/MainPage";
+import { IJob } from "./types/types";
 
 function App() {
+  const [jobs, setJobs] = useState<IJob[]>([]);
+
+  const toggleFavouriteJob = (id: string): void => {
+    setJobs((prevJobs: IJob[]) => {
+      let modedJobs = prevJobs.map((job: IJob) => {
+        if (job.id !== id) {
+          return job;
+        } else {
+          return { ...job, favourite: !job.favourite };
+        }
+      });
+      return modedJobs;
+    });
+  };
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        "https://api.json-generator.com/templates/ZM1r0eic3XEy/data",
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer wm3gg940gy0xek1ld98uaizhz83c6rh2sir9f9fu",
+          },
+        }
+      );
+      const data: IJob[] = await res.json();
+      setJobs(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MainPage jobs={jobs} onToggleFavouriteJob={toggleFavouriteJob} />
+            }
+          />
+          <Route path="/job/:id" element={<JobPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
