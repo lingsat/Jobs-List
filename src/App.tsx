@@ -7,6 +7,7 @@ import { IJob } from "./types/types";
 
 function App() {
   const [jobs, setJobs] = useState<IJob[]>([]);
+  const [currentJob, setCurrentJob] = useState<IJob | undefined>(undefined);
 
   const toggleFavouriteJob = (id: string): void => {
     setJobs((prevJobs: IJob[]) => {
@@ -19,6 +20,10 @@ function App() {
       });
       return modedJobs;
     });
+  };
+  const defineCurrentJob = (id: string | undefined): void => {
+    let definedJob = jobs.find(job => job.id === id);
+    setCurrentJob(definedJob);
   };
 
   const fetchData = async () => {
@@ -50,10 +55,17 @@ function App() {
           <Route
             path="/"
             element={
-              <MainPage jobs={jobs} onToggleFavouriteJob={toggleFavouriteJob} />
+              <MainPage
+                jobs={jobs}
+                onToggleFavouriteJob={toggleFavouriteJob}
+                
+              />
             }
           />
-          <Route path="/job/:id" element={<JobPage />} />
+          <Route
+            path="/job/:id"
+            element={<JobPage currentJob={currentJob} onSetCurrentJob={defineCurrentJob} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

@@ -4,7 +4,7 @@ export interface IJob {
   createdAt: string;
   description: string;
   email: string;
-  employment_type: string;
+  employment_type: string[];
   id: string;
   location: {
     lat: number;

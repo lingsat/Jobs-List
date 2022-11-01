@@ -33,7 +33,7 @@ const JobCard: FC<JobCardProps> = ({ job, onToggleFavouriteJob }) => {
       </div>
       <div className="card__content flex flex-col-reverse md:flex-row justify-between">
         <div className="md:w-1/2 lg:w-7/12 xl:w-8/12">
-          <Link to={`/job/${job.id}`}>
+          <Link to={`/job/${job.id}`} >
             <h2 className="card__title mb-2 text-lg leading-6 sm:text-xl sm:font-bold">
               {job.title}
             </h2>
