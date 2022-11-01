@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('http://fonts.cdnfonts.com/css/proxima-nova-2');
+
+
 body {
-  font-family: 'Proxima Nova'; /* add font */
+  font-family: 'Proxima Nova', sans-serif;
   background-color: #E6E9F2;  
 }
 
