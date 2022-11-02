@@ -22,22 +22,21 @@ function App() {
     });
   };
   const defineCurrentJob = (id: string | undefined): void => {
-    let definedJob = jobs.find(job => job.id === id);
+    let definedJob = jobs.find((job) => job.id === id);
     setCurrentJob(definedJob);
   };
 
   const fetchData = async () => {
     try {
-      const res = await fetch(
-        "https://api.json-generator.com/templates/ZM1r0eic3XEy/data",
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer wm3gg940gy0xek1ld98uaizhz83c6rh2sir9f9fu",
-          },
-        }
-      );
+      const res = await fetch(process.env.REACT_APP_DATA_API_LINK!, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_DATA_API_TOKEN}`,
+        },
+      });
+      console.log(res.status);
       const data: IJob[] = await res.json();
+      console.log(data[0]);
       setJobs(data);
     } catch (error) {
       console.log(error);
@@ -55,16 +54,17 @@ function App() {
           <Route
             path="/"
             element={
-              <MainPage
-                jobs={jobs}
-                onToggleFavouriteJob={toggleFavouriteJob}
-                
-              />
+              <MainPage jobs={jobs} onToggleFavouriteJob={toggleFavouriteJob} />
             }
           />
           <Route
             path="/job/:id"
-            element={<JobPage currentJob={currentJob} onSetCurrentJob={defineCurrentJob} />}
+            element={
+              <JobPage
+                currentJob={currentJob}
+                onSetCurrentJob={defineCurrentJob}
+              />
+            }
           />
         </Routes>
       </BrowserRouter>

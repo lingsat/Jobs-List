@@ -11,6 +11,7 @@ export interface IJob {
     long: number;
   };
   name: string;
+  phone: string;
   pictures: string[];
   salary: string;
   title: string;
