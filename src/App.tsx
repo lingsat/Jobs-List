@@ -7,6 +7,8 @@ import { IJob } from "./types/types";
 
 function App() {
   const [jobs, setJobs] = useState<IJob[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [currentJob, setCurrentJob] = useState<IJob | undefined>(undefined);
 
   const toggleFavouriteJob = (id: string): void => {
@@ -26,21 +28,21 @@ function App() {
     setCurrentJob(definedJob);
   };
 
-  const fetchData = async () => {
-    try {
-      const res = await fetch(process.env.REACT_APP_DATA_API_LINK!, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_DATA_API_TOKEN}`,
-        },
-      });
-      console.log(res.status);
+  const fetchData = async () => {    
+    setLoading(true);
+    const res = await fetch(process.env.REACT_APP_DATA_API_LINK!, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_DATA_API_TOKEN}`,
+      },
+    });
+    if (res.status === 200 && res.ok) {
       const data: IJob[] = await res.json();
-      console.log(data[0]);
       setJobs(data);
-    } catch (error) {
-      console.log(error);
+    } else {
+      console.log('Something went wrong!');
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -54,7 +56,7 @@ function App() {
           <Route
             path="/"
             element={
-              <MainPage jobs={jobs} onToggleFavouriteJob={toggleFavouriteJob} />
+              <MainPage jobs={jobs} loading={loading} onToggleFavouriteJob={toggleFavouriteJob} />
             }
           />
           <Route

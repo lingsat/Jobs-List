@@ -41,7 +41,7 @@ const JobCard: FC<JobCardProps> = ({ job, onToggleFavouriteJob }) => {
           <p className="card__text mb-2 text-base">
             Department name • {job.name}
           </p>
-          <p className="card__text text-base flex gap-2">
+          <p className="card__text text-base flex items-start gap-2">
             <img src="./assets/images/Location.svg" alt="Location" />
             {job.address}
           </p>

@@ -1,0 +1,42 @@
+ul {
+  background-color: #fff;
+  box-shadow: 2px 1px 7px rgba(0, 0, 0, 0.08), 0px 2px 1px -1px rgba(0, 0, 0, 0.04), 0px 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.btn {
+  color: #70778B;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  transition: opacity 0.1s linear;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}
+
+.btn__prev::after {
+  content: '';
+  width: 2px;
+  height: 100%;
+  background-color: #DEE3EF;
+  position: absolute;
+  top: 0;
+  right: -15px;
+  z-index: 1;
+}
+
+.btn__next::before {
+  content: '';
+  width: 1px;
+  height: 100%;
+  background-color: #DEE3EF;
+  position: absolute;
+  top: 0;
+  left: -15px;
+  z-index: 1;
+}
+
+.active {
+  color: #5876C5;
+  border-bottom: 3px solid #5876C5;
+}

@@ -13,12 +13,13 @@ const JobPage: FC<JopPageProps> = ({ currentJob, onSetCurrentJob }) => {
   let { id } = useParams();
 
   useEffect(() => {
+    console.log('jobs page');
     onSetCurrentJob(id);
   }, [id, onSetCurrentJob]);
 
   return (
     <>
-      <main className="max-container mx-auto mb-6 sm:mb-10 lg:mb-24 p-3 sm:p-5 flex flex-wrap lg:flex-nowrap justify-between items-start lg:gap-20">
+      <main className="max-container mx-auto mb-6 sm:mb-10 lg:mb-16 p-3 sm:p-5 flex flex-wrap lg:flex-nowrap justify-between items-start lg:gap-20">
         <div className="job__content w-full lg:w-4/6">
           <div className="job__header mb-7 flex flex-wrap flex-col sm:flex-row gap-2 justify-between">
             <h2 className="main__title order-1 text-2xl font-bold">Job Details</h2>
