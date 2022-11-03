@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, HashRouter } from "react-router-dom";
 import JobPage from "./components/JobPage";
 import MainPage from "./components/MainPage";
 import { IJob } from "./types/types";
@@ -53,7 +53,7 @@ const App: FC = () => {
 
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route
             path="/"
@@ -76,7 +76,7 @@ const App: FC = () => {
             }
           />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 };

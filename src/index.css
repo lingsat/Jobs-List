@@ -2,12 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('http://fonts.cdnfonts.com/css/proxima-nova-2');
-
-
 body {
-  font-family: 'Proxima Nova', sans-serif;
-  background-color: #E6E9F2;  
+  font-family: "Roboto", sans-serif;
+  background-color: #e6e9f2;
 }
 
 .max-container {
