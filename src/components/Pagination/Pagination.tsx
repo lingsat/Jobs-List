@@ -16,7 +16,7 @@ const Pagination: FC<PaginationProps> = ({
   totalJobs,
   onPaginate,
   onDecreasePage,
-  onIncreasePage
+  onIncreasePage,
 }) => {
   const pageNumbers: number[] = [];
 
@@ -27,14 +27,19 @@ const Pagination: FC<PaginationProps> = ({
   return (
     <nav className="py-5 sm:py-10">
       <ul className="max-w-fit flex justify-center items-center gap-2 mx-auto px-5 rounded-lg">
-        <button className="btn__prev py-1 px-2 mr-10 relative hover:opacity-70" onClick={onDecreasePage}>
+        <button
+          className="btn__prev py-1 px-2 mr-10 relative hover:opacity-70"
+          onClick={onDecreasePage}
+        >
           <img src="../assets/images/Prev.svg" alt="Previous" />
         </button>
         {pageNumbers.map((number) => {
           return (
             <li key={number}>
               <button
-                className={`btn py-2 px-2 text-xl leading-6 font-bold ${currentPage === number && 'active'}`}
+                className={`btn py-2 px-2 text-xl leading-6 font-bold hover:opacity-70 ${
+                  currentPage === number && "active"
+                }`}
                 onClick={() => onPaginate(number)}
               >
                 {number}
@@ -42,7 +47,10 @@ const Pagination: FC<PaginationProps> = ({
             </li>
           );
         })}
-        <button className="btn__next py-1 px-2 ml-10 relative hover:opacity-70" onClick={onIncreasePage}>
+        <button
+          className="btn__next py-1 px-2 ml-10 relative hover:opacity-70"
+          onClick={onIncreasePage}
+        >
           <img src="../assets/images/Next.svg" alt="Next" />
         </button>
       </ul>

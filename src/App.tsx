@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
 import JobPage from "./components/JobPage";
 import MainPage from "./components/MainPage";
 import { IJob } from "./types/types";
 
-function App() {
+const App: FC = () => {
   const [jobs, setJobs] = useState<IJob[]>([]);
+  const [isDataGeted, setIsDataGeted] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-
   const [currentJob, setCurrentJob] = useState<IJob | undefined>(undefined);
 
   const toggleFavouriteJob = (id: string): void => {
@@ -28,35 +27,42 @@ function App() {
     setCurrentJob(definedJob);
   };
 
-  const fetchData = async () => {    
-    setLoading(true);
-    const res = await fetch(process.env.REACT_APP_DATA_API_LINK!, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_DATA_API_TOKEN}`,
-      },
-    });
-    if (res.status === 200 && res.ok) {
-      const data: IJob[] = await res.json();
-      setJobs(data);
-    } else {
-      console.log('Something went wrong!');
+  const fetchData = useCallback(async () => {
+    if (!isDataGeted) {
+      setLoading(true);
+      const res = await fetch(process.env.REACT_APP_DATA_API_LINK!, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_DATA_API_TOKEN}`,
+        },
+      });
+      if (res.status === 200 && res.ok) {
+        const data: IJob[] = await res.json();
+        setJobs(data);
+        setIsDataGeted(true);
+      } else {
+        alert("Something went wrong! Try again later!");
+      }
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }, [isDataGeted]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return (
-    <div>
+    <>
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
             element={
-              <MainPage jobs={jobs} loading={loading} onToggleFavouriteJob={toggleFavouriteJob} />
+              <MainPage
+                jobs={jobs}
+                loading={loading}
+                onToggleFavouriteJob={toggleFavouriteJob}
+              />
             }
           />
           <Route
@@ -65,13 +71,14 @@ function App() {
               <JobPage
                 currentJob={currentJob}
                 onSetCurrentJob={defineCurrentJob}
+                fetchData={fetchData}
               />
             }
           />
         </Routes>
       </BrowserRouter>
-    </div>
+    </>
   );
-}
+};
 
 export default App;

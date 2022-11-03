@@ -1,28 +1,20 @@
 .job__content {
-  color: #3A4562;
-}
-
-.main__title {
-  letter-spacing: 0.413333px;
+  color: #3a4562;
 }
 
 .header_controls {
   transition: opacity 0.1s linear;
 }
 
-.header_controls:hover {
-  opacity: 0.6;
-}
-
 .line {
   width: 100%;
   height: 1px;
-  background-color: #3A4562;
+  background-color: #3a4562;
   opacity: 0.13;
 }
 
 .job__btn {
-  background-color: #3A4562;
+  background-color: #3a4562;
   color: #fff;
   transition: background-color 0.1s linear;
 }
@@ -35,7 +27,8 @@
   letter-spacing: -0.75px;
 }
 
-.job__salary, .job__text {
+.job__salary,
+.job__text {
   letter-spacing: -0.5625px;
 }
 
@@ -51,9 +44,9 @@
 
 .job__benefit {
   width: 31%;
-  color: #988B49;
+  color: #988b49;
   background: rgba(255, 207, 0, 0.15);
-  border: 1px solid #FFCF00;
+  border: 1px solid #ffcf00;
 }
 
 .job__image {
@@ -63,13 +56,12 @@
 
 .job__contacts {
   max-width: 400px;
-  background-color: #2A3047;
-  color: #E7EAF0;
-  overflow: hidden;
+  background-color: #2a3047;
+  color: #e7eaf0;
 }
 
 .back__btn {
-  color: #3A4562;
+  color: #3a4562;
   background: rgba(161, 177, 219, 0.317343);
   transition: background 0.1s linear;
 }

@@ -1,7 +1,8 @@
 import { FC, useState } from "react";
 import { IJob } from "../types/types";
 import JobCard from "./JobCard";
-import Pagination from "./Pagination";
+import LoadinSpinner from "./LoadingSpinner/LoadingSpinner";
+import Pagination from "./Pagination/Pagination";
 
 interface MainPageProps {
   jobs: IJob[];
@@ -15,7 +16,7 @@ const MainPage: FC<MainPageProps> = ({
   onToggleFavouriteJob,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const jobsPerPage: number = 15;
+  const jobsPerPage: number = 10;
 
   // Get current jobs
   const indexOfLastJob = currentPage * jobsPerPage;
@@ -48,11 +49,7 @@ const MainPage: FC<MainPageProps> = ({
   };
 
   if (loading) {
-    return (
-      <h2 className="text-xl text-center px-3 py-1 sm:px-5 sm:py-3">
-        Loading...
-      </h2>
-    );
+    return <LoadinSpinner />;
   }
 
   return (
@@ -66,14 +63,16 @@ const MainPage: FC<MainPageProps> = ({
           />
         );
       })}
-      <Pagination
-        currentPage={currentPage}
-        jobsPerPage={jobsPerPage}
-        totalJobs={jobs.length}
-        onPaginate={paginate}
-        onDecreasePage={decreasePage}
-        onIncreasePage={increasePage}
-      />
+      {jobs.length > jobsPerPage && (
+        <Pagination
+          currentPage={currentPage}
+          jobsPerPage={jobsPerPage}
+          totalJobs={jobs.length}
+          onPaginate={paginate}
+          onDecreasePage={decreasePage}
+          onIncreasePage={increasePage}
+        />
+      )}
     </main>
   );
 };
