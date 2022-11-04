@@ -41,7 +41,7 @@ const JobCard: FC<JobCardProps> = ({ job, onToggleFavouriteJob }) => {
           </p>
         </div>
         <div className="md:w-1/2 lg:w-5/12 xl:w-4/12 mb-3 md:mb-0 flex gap-3 sm:gap-8 md:justify-end items-center">
-          {job.favourite ? starsBlock : null}
+          {job.favourite && starsBlock}
           <div className="card__data ml-auto md:ml-0 h-full flex flex-row-reverse md:flex-col justify-between items-center md:items-end">
             <img
               className="card__icon w-4 hidden sm:block ml-4 cursor-pointer hover:opacity-70"

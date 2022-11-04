@@ -1,5 +1,5 @@
 export interface IJob {
-  address: string;  
+  address: string;
   benefits: string[];
   createdAt: string;
   description: string;

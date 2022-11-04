@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { IJob } from "../types/types";
 import moment from "moment";
+import { IJob } from "../types/types";
 import LoadinSpinner from "./LoadingSpinner/LoadingSpinner";
 import Map from "./Map/Map";
 import "./JobPage.css";
@@ -17,7 +17,7 @@ const JobPage: FC<JopPageProps> = ({
   onSetCurrentJob,
   fetchData,
 }) => {
-  let { id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     fetchData();
@@ -27,6 +27,14 @@ const JobPage: FC<JopPageProps> = ({
   if (currentJob === undefined) {
     return <LoadinSpinner />;
   }
+
+  const description = currentJob.description.split("Responsopilities:")[0];
+  const responsopilities = currentJob.description
+    .split("Responsopilities:")[1]
+    .split("Compensation & Benefits:")[0];
+  const compensationBenefits = currentJob.description
+    .split("Responsopilities:")[1]
+    .split("Compensation & Benefits:")[1];
 
   return (
     <>
@@ -61,41 +69,27 @@ const JobPage: FC<JopPageProps> = ({
           </button>
           <div className="mb-2 flex flex-wrap justify-between items-center sm:items-start">
             <h2 className="job__title order-1 mb-2 sm:w-4/6 text-2xl font-bold leading-7">
-              {currentJob?.title}
+              {currentJob.title}
             </h2>
             <div className="job__salary flex flex-col-reverse sm:flex-col order-3 sm:order-2 w-1/2 sm:w-auto text-right sm:text-left">
               <p className="text-xl font-bold leading-6">
-                &euro; {currentJob?.salary.replaceAll("k", " 000")}
+                &euro; {currentJob.salary.replaceAll("k", " 000")}
               </p>
               <span className="text-lg leading-6">Brutto, per year</span>
             </div>
             <p className="job__posted order-2 sm:order-3  w-1/2 sm:w-full text-sm sm:text-lg leading-6">
-              Posted {moment(currentJob?.createdAt).fromNow()}
+              Posted {moment(currentJob.createdAt).fromNow()}
             </p>
           </div>
-          <p className="job__text text-lg leading-6">
-            {currentJob?.description.split("Responsopilities:")[0]}
-          </p>
+          <p className="job__text text-lg leading-6">{description}</p>
           <h3 className="mt-6 mb-2 text-xl leading-6 font-bold">
             Responsopilities
           </h3>
-          <p className="job__text text-lg leading-6">
-            {
-              currentJob?.description
-                .split("Responsopilities:")[1]
-                .split("Compensation & Benefits:")[0]
-            }
-          </p>
+          <p className="job__text text-lg leading-6">{responsopilities}</p>
           <h3 className="mt-6 mb-2 text-xl leading-6 font-bold">
             Compensation & Benefits:
           </h3>
-          <p className="job__text text-lg leading-6">
-            {
-              currentJob?.description
-                .split("Responsopilities:")[1]
-                .split("Compensation & Benefits:")[1]
-            }
-          </p>
+          <p className="job__text text-lg leading-6">{compensationBenefits}</p>
           <button className="job__btn block mx-auto md:mx-0 mt-7 md:mt-10 mb-20 px-7 py-4 rounded-md text-xs">
             APPLY NOW
           </button>
@@ -109,11 +103,11 @@ const JobPage: FC<JopPageProps> = ({
               </div>
               <h5 className="mb-2 text-lg leading-6">Employment type</h5>
               <div className="mb-6 flex flex-wrap gap-2">
-                {currentJob?.employment_type.map((type) => {
+                {currentJob.employment_type.map((type) => {
                   return (
                     <div
                       key={type}
-                      className="job__type py-4 rounded-lg text-center text-base leading-4 font-bold"
+                      className="job__type py-4 px-2 rounded-lg text-center text-base leading-4 font-bold"
                     >
                       {type}
                     </div>
@@ -122,11 +116,11 @@ const JobPage: FC<JopPageProps> = ({
               </div>
               <h5 className="mb-2 text-lg leading-6">Benefits</h5>
               <div className="sm:mb-20 flex flex-wrap gap-2">
-                {currentJob?.benefits.map((benefit) => {
+                {currentJob.benefits.map((benefit) => {
                   return (
                     <div
                       key={benefit}
-                      className="job__benefit py-4 rounded-lg text-center text-base leading-4 font-bold"
+                      className="job__benefit py-4 px-2 rounded-lg text-center text-base leading-4 font-bold"
                     >
                       {benefit}
                     </div>
@@ -142,7 +136,7 @@ const JobPage: FC<JopPageProps> = ({
                 <div className="line mb-5"></div>
               </div>
               <div className="flex gap-2">
-                {currentJob?.pictures.map((picture, index) => {
+                {currentJob.pictures.map((picture, index) => {
                   return (
                     <img
                       key={index}
@@ -166,7 +160,7 @@ const JobPage: FC<JopPageProps> = ({
               Department name.
             </p>
             <p className="mb-3 text-base sm:text-xl leading-5 sm:leading-6 font-bold">
-              {currentJob?.name}
+              {currentJob.name}
             </p>
             <p className="mb-2 text-base sm:text-lg leading-5 sm:leading-6">
               <img
@@ -174,20 +168,20 @@ const JobPage: FC<JopPageProps> = ({
                 src="../assets/images/Location.svg"
                 alt="Location"
               />
-              {currentJob?.address}
+              {currentJob.address}
             </p>
             <p className="text-base sm:text-lg leading-5 sm:leading-6">
-              {currentJob?.phone},
+              {currentJob.phone},
             </p>
             <p className="text-base sm:text-lg leading-5 sm:leading-6">
-              {currentJob?.email}
+              {currentJob.email}
             </p>
           </div>
 
           <div className="h-52 w-full text-center">
             <Map
-              lat={currentJob?.location.lat!}
-              lng={currentJob?.location.long!}
+              lat={currentJob.location.lat!}
+              lng={currentJob.location.long!}
             />
           </div>
         </div>
